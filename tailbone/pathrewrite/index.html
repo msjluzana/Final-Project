@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Project Title</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=602442816480495";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>
+        <div class="navbar navbar-inverse navbar-fixed-top header">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="javascript:void(0)" id="web-title"><strong>Thesis Management System<strong></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav menu-crud">
+                        <li class='menu-create item'  id="header-content"><a href="javascript:void(0)">Create New</a></li>
+                        <li class='menu-list item'  id="header-content"><a href="javascript:void(0)">Show All</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class='menu-loading'><a href="#">Loading...</a></li>
+                        <li class="menu-user dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class='user-email'></span> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class='btn-logout'>Logout</a></li>
+                                <li ><a href="#">About</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <a href='#' class="btn btn-primary btn-login navbar-btn navbar-right">Log in</a>
+                    <form class="navbar-form navbar-right search" role="search" _lpchecked="1">
+                        <div class="form-group">
+                          <input type="text" class="form-control search_result" placeholder="Search">
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+            <div class='container'>
+
+                <div class='row app-content'>
+                </div>
+            </div>
+        </div>
+
+        <!-- scripts -->
+        <!-- =================== -->
+        <script src="js/jquery.js"></script>
+        <script src="js/underscore.js"></script>
+        <script src="js/backbone.js"></script>
+        <script src="js/handlebars.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/app.js"></script>
+
+
+        <!-- templates -->
+        <!-- =================== -->
+        <script id="tpl-thesis-list" type="text/x-handlebars-template">
+            <div class='col-md-7'>
+                <table class='table table-hover'>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Title</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class='thesis-list'>
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+        <script class = "title-list" id="tpl-thesis-list-item" type="text/x-handlebars-template">
+            <tr>
+                <td  data-id="{{Id}}">{{Year}}</td>
+                <td  data-id="{{Id}}">{{Title}}</td>
+                <td data-id="{{Id}}"><button class="view btn btn-primary" id="{{_index}}">View</button></td>
+                <td data-id="{{Id}}"><button class="edit btn btn-primary" id="{{_index}}">Edit</button></td>
+                <td data-id="{{Id}}"><button class="delete btn btn-danger" id="{{_index}}">Delete</button></td>
+            </tr>
+        </script>
+
+
+        <script id="tpl-thesis-form" type="text/x-handlebars-template">
+            <div class='col-md-7 thesis-form'>
+                <form role="form">
+                    <div class="form-group">
+                        <label for="year-input">Year</label>
+                        <select id='year-input' name='Year' class="form-control">
+                          <option value='2013' {{#compare Year '2013'}}selected{{/compare}}>2013</option>
+                          <option value='2012' {{#compare Year '2012'}}selected{{/compare}}>2012</option>
+                          <option value='2011' {{#compare Year '2011'}}selected{{/compare}}>2011</option>
+                          <option value='2010' {{#compare Year '2010'}}selected{{/compare}}>2010</option>
+                          <option value='2009' {{#compare Year '2009'}}selected{{/compare}}>2009</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tite-input">Title</label>
+                        <input id='title-input' type="text" class="form-control" name='Title' placeholder="Enter title.." value='{{Title}}'>
+                    </div>
+                    <div class="form-group">
+                        <label for="subtite-input">Subtitle</label>
+                        <input id='subtitle-input' type="text" class="form-control" name='Subtitle' placeholder="Enter subtitle.." value='{{Subtitle}}'>
+                    </div>
+                    <div class="form-group">
+                        <label for="description-input">Description</label>
+                        <textarea id='description-input' name='Description' class="form-control" rows="3">{{Description}}</textarea>
+                    </div>
+                    {{#if Id}}
+                        <input id='subtitle-input' type="text" style='display:none;' name='Id' value='{{Id}}'>
+                        <button class="btn-cancel btn btn-default">Cancel</button>
+                    {{/if}}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </script>
+
+
+        <script id="tpl-thesis-detail" type="text/x-handlebars-template">
+            <div class="col-lg-8">
+                <hgroup>
+                    <h2>{{Title}}</h2>
+                    <h4>{{Subtitle}}</h4>
+                </hgroup>
+                <time>{{Year}}</time>
+                <hr>
+                <p>{{Description}}</p>
+                <hr>
+
+                
+                <div class="fb-like" data-href="http://exofinal.appspot.com/" data-colorscheme="dark" data-layout="button_count" data-action="like" data-show-faces="true" data-send="true"></div>
+                <div class="fb-comments" data-href="http://exofinal.appspot.com/" data-colorscheme="dark" data-numposts="5" data-width="600"></div>
+            </div>
+        </script>
+
+    </body>
+</html>

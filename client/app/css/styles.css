@@ -1,0 +1,29 @@
+body {
+    padding-top: 70px;   
+}
+
+.hidden {
+    display: none;
+}
+
+.header {
+	background-color: #4a73b9;
+}
+
+h1, h3 {
+	text-align: center;
+}
+
+h3, span {
+	font-style: italic;
+}
+
+#web-title {
+	color: yellow;
+	font-family: papyrus;
+	font-style: bold;
+}
+
+#header-content {
+	color: blue;
+}

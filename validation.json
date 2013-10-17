@@ -1,0 +1,11 @@
+{
+  "thesis": {
+    "Year": "",
+    "Title": "",
+    "Subtitle": "",
+    "Description": "",
+    "Group_id": "",
+    "Category_id": "",
+    "Tags": "^\\[.*\\]$"
+  }
+}
